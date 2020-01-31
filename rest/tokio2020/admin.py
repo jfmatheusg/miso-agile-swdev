@@ -1,13 +1,36 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import CustomUser, Athlete, Sport, Mode, Event
 
-admin.site.register(CustomUser)
-admin.site.register(Athlete)
-admin.site.register(Sport)
-admin.site.register(Mode)
-admin.site.register(Event)
+
+class SportAdmin(admin.ModelAdmin):
+
+    readonly_fields = ["icono_url"]
+
+    def icono_url(self, obj):
+        return mark_safe('<img src="{url}" height="48" />'.format(
+            url=obj.get_absolute_url(),
+        )
+        )
 
 
 class EventAdmin(admin.ModelAdmin):
-    exclude = ['datetime', ]
+    readonly_fields = ['datetime', ]
+
+
+class AthleteAdmin(admin.ModelAdmin):
+    readonly_fields = ['age', "image_url"]
+
+    def image_url(self, obj):
+        return mark_safe('<img src="{url}" height="100" />'.format(
+            url=obj.get_absolute_url(),
+        )
+        )
+
+
+admin.site.register(CustomUser)
+admin.site.register(Athlete, AthleteAdmin)
+admin.site.register(Mode)
+admin.site.register(Sport, SportAdmin)
+admin.site.register(Event, EventAdmin)
