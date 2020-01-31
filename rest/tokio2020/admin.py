@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import CustomUser, Athlete, Sport, Mode, Event
+from .models import CustomUser, Athlete, Sport, Mode, Event, Comment
 
 
 class SportAdmin(admin.ModelAdmin):
@@ -17,6 +17,7 @@ class SportAdmin(admin.ModelAdmin):
 
 class EventAdmin(admin.ModelAdmin):
     readonly_fields = ['datetime', ]
+    exclude = ['sport_id', ]
 
 
 class AthleteAdmin(admin.ModelAdmin):
@@ -29,8 +30,13 @@ class AthleteAdmin(admin.ModelAdmin):
         )
 
 
+class CommentAdmin(admin.ModelAdmin):
+    readonly_fields = ['created_at', 'text', 'user_id', 'event_id']
+
+
 admin.site.register(CustomUser)
 admin.site.register(Athlete, AthleteAdmin)
 admin.site.register(Mode)
 admin.site.register(Sport, SportAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(Comment, CommentAdmin)

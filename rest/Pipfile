@@ -6,8 +6,15 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+asgiref = "*"
+dj-database-url = "*"
 django = "*"
-pillow = "*"
+gunicorn = "*"
+Pillow = "*"
+pytz = "*"
+sqlparse = "*"
+whitenoise = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"
