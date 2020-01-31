@@ -66,3 +66,16 @@ Ahora puede acceder al portal **Colombia en Tokio 2020** desde el navegador a es
 ## Acceder al administrador
 
 Luego de tener un usuario administrador se puede acceder a la sección administrativa de django en esta URL http://127.0.0.1:8000/admin
+
+
+## Publicar en Heroku
+
+### Instalar herramientas
+
+#### MacOS
+
+Instalando Heroku CLI
+
+```
+brew tap heroku/brew && brew install heroku
+```

@@ -22,7 +22,7 @@ cd folder-name
 ***
 ## Enunciado
 
-Con motivo de los Olímpicos del 2020, la Universidad de Los Andes quiere proveer un sitio web en cual sus estudiantes puedan ver la información actualizada de los deportistas colombianos que van a participar enlos juegos olímpicos, con énfasis en los resultados obtenidos por la delegación Colombia, con la finalidad de fomentar el espíritu deportivo y patriótico de su comunidad estudiantil.Las funcionalidades que se deben implementar en el portal llamado "Colombia en Tokio 2020" son:
+Con motivo de los Olímpicos del 2020, la Universidad de Los Andes quiere proveer un sitio web en cual sus estudiantes puedan ver la información actualizada de los deportistas colombianos que van a participar enlos juegos olímpicos, con énfasis en los resultados obtenidos por la delegación Colombia, con la finalidad de fomentar el espíritu deportivo y patriótico de su comunidad estudiantil. Las funcionalidades que se deben implementar en el portal llamado "Colombia en Tokio 2020" son:
 
 1. Lista  de deportistasdela  delegación  colombianaque  participa(en  presentación  estilo  galería).  Para  cada deportista se muestra el nombre, una foto y los iconos de los deportes en que participa.
 2. Filtrar el listado de deportistas por deportes. En el caso en que el deporte tenga varias modalidades se debe poder filtrar también por la modalidad.
@@ -38,7 +38,7 @@ Con motivo de los Olímpicos del 2020, la Universidad de Los Andes quiere provee
    - Hora
    - Modalidad
    - Resultado del Deportista
-5. Para cada evento en el que participa el deportistase quiere tener un video corto en el cual los estudiantes puedan ver el resumen del evento competitivo.
+5. Para cada evento en el que participa el deportista se quiere tener un video corto en el cual los estudiantes puedan ver el resumen del evento competitivo.
 6. Los estudiantes se pueden registrar en el sitio ingresando la siguiente información:
    - usuario
    - Password

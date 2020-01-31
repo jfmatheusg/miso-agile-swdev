@@ -82,21 +82,41 @@ class Mode(models.Model):
 
 class Event(models.Model):
     """
-    Modalidad de deporte
+    Eventos de los deportista
     """
     date = models.DateField(verbose_name="Fecha")
     time = models.TimeField(verbose_name="Hora")
     datetime = models.DateTimeField(verbose_name="Fecha y Hora", null=True)
+    athlete_id = models.ForeignKey(
+        Athlete, on_delete=models.SET_NULL, related_name='athlete_event', verbose_name="Deportista", null=True)
     sport_id = models.ForeignKey(
         Sport, on_delete=models.CASCADE, related_name='sport_event', verbose_name="Deporte")
     mode_id = models.ForeignKey(
         Mode, on_delete=models.CASCADE, related_name='modet_event', verbose_name="Modalidad")
     result = models.CharField(
-        max_length=50, verbose_name="Resultado", null=True)
+        max_length=50, verbose_name="Resultado", null=True, default="")
 
     def save(self, *args, **kwargs):
         self.datetime = '%s %s' % (self.date, self.time)
+        self.sport_id = self.mode_id.sport_id
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return '%s - %s/%s' % (self.datetime, self.sport_id, self.mode_id)
+        return '%s - %s [%s]' % (self.datetime.strftime("%d/%m %H:%M"), self.athlete_id, self.mode_id)
+
+
+class Comment(models.Model):
+    """
+    Comentarios de los eventos
+    """
+
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="Creado")
+    text = models.TextField(verbose_name="Comentario")
+    user_id = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name='user_comment', verbose_name="Usuario")
+    event_id = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name='event_comment', verbose_name="Evento")
+
+    def __str__(self):
+        return '%s - %s ** %s' % (self.created_at.strftime("%d/%m %H:%M"), self.user_id, self.event_id)
