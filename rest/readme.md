@@ -79,3 +79,13 @@ Instalando Heroku CLI
 ```
 brew tap heroku/brew && brew install heroku
 ```
+
+### Publicar
+```
+git init
+git add .
+git commit -am "Publicacion"
+
+heroku git:remote -a olimpicosmiso
+git push heroku master
+
