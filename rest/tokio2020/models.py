@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from datetime import date
+from datetime import date, datetime
 
 
 class CustomUser(AbstractUser):
@@ -97,7 +97,7 @@ class Event(models.Model):
         max_length=50, verbose_name="Resultado", null=True, default="")
 
     def save(self, *args, **kwargs):
-        self.datetime = '%s %s' % (self.date, self.time)
+        self.datetime = datetime.strptime('%s %s' % (self.date, self.time),"%Y-%m-%d %H:%M:%S")
         self.sport_id = self.mode_id.sport_id
         super().save(*args, **kwargs)
 
