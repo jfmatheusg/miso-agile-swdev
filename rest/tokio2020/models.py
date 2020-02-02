@@ -77,7 +77,7 @@ class Mode(models.Model):
         Sport, on_delete=models.CASCADE, related_name='sport_mode', verbose_name="Deporte")
 
     def __str__(self):
-        return '%s/%s' % (self.sport_id, self.name)
+        return '%s/%s/%s' % (self.sport_id, self.name, gender)
 
 
 class Event(models.Model):
@@ -97,12 +97,13 @@ class Event(models.Model):
         max_length=50, verbose_name="Resultado", null=True, default="")
 
     def save(self, *args, **kwargs):
-        self.datetime = datetime.strptime('%s %s' % (self.date, self.time),"%Y-%m-%d %H:%M:%S")
+        self.datetime = datetime.strptime('%s %s' % (
+            self.date, self.time), "%Y-%m-%d %H:%M:%S")
         self.sport_id = self.mode_id.sport_id
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return '%s - %s [%s]' % (self.datetime.strftime("%d/%m %H:%M"), self.athlete_id, self.mode_id)
+        return '%s - %s [%s]' % (self.datetime, self.athlete_id, self.mode_id)
 
 
 class Comment(models.Model):
