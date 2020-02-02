@@ -77,7 +77,7 @@ class Mode(models.Model):
         Sport, on_delete=models.CASCADE, related_name='sport_mode', verbose_name="Deporte")
 
     def __str__(self):
-        return '%s/%s/%s' % (self.sport_id, self.name, gender)
+        return '%s/%s/%s' % (self.sport_id, self.name, self.gender)
 
 
 class Event(models.Model):
