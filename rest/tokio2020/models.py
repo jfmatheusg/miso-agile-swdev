@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from datetime import date, datetime
+from datetime import date
+from django.utils import timezone
 
 
 class CustomUser(AbstractUser):
@@ -91,14 +92,10 @@ class Event(models.Model):
     date = models.DateField(verbose_name="Fecha")
     time = models.TimeField(verbose_name="Hora")
     datetime = models.DateTimeField(verbose_name="Fecha y Hora", null=True)
-    athlete_id = models.ForeignKey(
-        Athlete, on_delete=models.SET_NULL, related_name='athlete_event', verbose_name="Deportista", null=True)
-    sport_id = models.ForeignKey(
-        Sport, on_delete=models.CASCADE, related_name='sport_event', verbose_name="Deporte")
-    mode_id = models.ForeignKey(
-        Mode, on_delete=models.CASCADE, related_name='modet_event', verbose_name="Modalidad")
-    result = models.CharField(
-        max_length=50, verbose_name="Resultado", null=True, default="")
+    athlete_id = models.ForeignKey(Athlete, on_delete=models.SET_NULL, related_name='athlete_event', verbose_name="Deportista", null=True)
+    sport_id = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name='sport_event', verbose_name="Deporte")
+    mode_id = models.ForeignKey(Mode, on_delete=models.CASCADE, related_name='modet_event', verbose_name="Modalidad")
+    result = models.CharField(max_length=50, verbose_name="Resultado", null=True, default="")
 
     def save(self, *args, **kwargs):
         self.datetime = datetime.strptime('%s %s' % (
