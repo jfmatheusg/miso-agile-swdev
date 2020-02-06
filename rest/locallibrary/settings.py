@@ -16,6 +16,17 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+print(os.path.join(BASE_DIR, 'assets'))
+try:
+    os.makedirs(os.path.join(BASE_DIR, 'assets'), exist_ok=True)
+except OSError:
+    pass
+
+try:
+    os.makedirs(os.path.join(BASE_DIR, 'staticfiles'), exist_ok=True)
+except OSError:
+    pass
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -39,6 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tokio2020.apps.Tokio2020Config',
+    'rest_framework',
+    'django_filters',
+    # 'rest_framework_filters',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +93,20 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 DATABASES = {'default': {}}
 
 if os.getenv('HEROKU_APPLICATION'):
+    # db
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES['default'].update(db_from_env)
+
+    # s3
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_REGION_NAME = "eu-west-1"
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_BUCKET_ACL = "public-read"
+    AWS_IS_GZIPPED = True
+
 else:
     DATABASES['default'].update({
         'ENGINE': 'django.db.backends.sqlite3',
@@ -124,12 +150,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_TMP = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+STATIC_TMP = os.path.join(BASE_DIR, 'tmp')
+STATIC_URL = '/assets/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "files")
+    os.path.join(BASE_DIR, "dist"),
+    os.path.join(BASE_DIR, "assets"),
 ]
 AUTH_USER_MODEL = 'tokio2020.CustomUser'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# REST
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        # 'rest_framework_filters.backends.RestFrameworkFilterBackend',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 9,
+}

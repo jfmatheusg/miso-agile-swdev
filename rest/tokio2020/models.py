@@ -17,13 +17,15 @@ class Sport(models.Model):
     """
     name = models.CharField(max_length=50, verbose_name="Nombre")
     icono = models.FileField(
-        null=True, blank=True, upload_to="files/icons", verbose_name="Ícono")
+        null=True, blank=True, upload_to="assets/icons", verbose_name="Ícono")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return '/%s' % self.icono.url.replace('files', 'static', 1)
+        if self.icono:
+            return '%s%s' % (os.getenv('HEROKU_APPLICATION') if '' else '/', self.icono.url)
+        return ''
 
 
 class Athlete(models.Model):
@@ -33,7 +35,7 @@ class Athlete(models.Model):
     first_name = models.CharField(max_length=50, verbose_name="Nombres")
     last_name = models.CharField(max_length=50, verbose_name="Apellidos")
     image = models.ImageField(null=True, blank=True,
-                              upload_to="files/athletes", verbose_name="Foto")
+                              upload_to="assets/athletes", verbose_name="Foto")
     birthday = models.DateField(verbose_name="Fecha de Nacimiento")
     birthplace = models.CharField(
         max_length=50, verbose_name="Lugar de nacimiento")
@@ -55,7 +57,9 @@ class Athlete(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return '/%s' % self.image.url.replace('files', 'static', 1)
+        if self.image:
+            return '%s%s' % (os.getenv('HEROKU_APPLICATION') if '' else '/', self.image.url)
+        return ''
 
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
