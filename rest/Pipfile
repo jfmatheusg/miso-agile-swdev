@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+autopep8="*"
 
 [packages]
 asgiref = "*"
@@ -15,6 +16,11 @@ pytz = "*"
 sqlparse = "*"
 whitenoise = "*"
 psycopg2-binary = "*"
+boto3 = "*"
+django-storages = "*"
+djangorestframework = "*"
+django-filter = "*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.8"

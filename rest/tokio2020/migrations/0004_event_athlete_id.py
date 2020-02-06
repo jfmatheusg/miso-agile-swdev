@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='event',
-            name='athlete_id',
+            name='athlete',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='athlete_event', to='tokio2020.Athlete', verbose_name='Deportista'),
         ),
     ]
