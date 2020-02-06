@@ -1,22 +1,33 @@
-from .models import Athlete, Comment, Event, CustomUser, Sport
+from .models import Athlete, Comment, Event, CustomUser, Sport, Mode, Comment
 from rest_framework import serializers
-
-
-# class UserSerializer(serializers.Serializer):
-#     email = serializers.EmailField()
-#     username = serializers.CharField(max_length=100)
+from rest_framework.validators import UniqueValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(max_length=50)
+    last_name = serializers.CharField(max_length=50)
+    password = serializers.CharField()
+
     class Meta:
         model = CustomUser
-        fields = ['username']
+        fields = ['email', 'username', 'first_name', 'last_name', 'password']
+
+    def create(self, validated_data):
+        return CustomUser.objects.create(**validated_data)
 
 
 class SportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sport
-        fields = ['name', 'get_absolute_url']
+        fields = ['id', 'name', 'get_absolute_url']
+
+
+class ModeSerializer(serializers.ModelSerializer):
+    sport = SportSerializer()
+
+    class Meta:
+        model = Mode
+        fields = ['id', 'name', 'gender', 'sport']
 
 
 class AthleteSerializer(serializers.ModelSerializer):
@@ -24,23 +35,34 @@ class AthleteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Athlete
-        fields = ['first_name', 'last_name', 'get_absolute_url', 'birthday', 'birthplace', 'age', 'weight', 'height', 'coach', 'sports']
+        fields = ['id', 'first_name', 'last_name', 'get_absolute_url', 'birthday', 'birthplace', 'age', 'weight', 'height', 'coach', 'sports']
 
 
 class EventSerializer(serializers.ModelSerializer):
-    athlete_id = AthleteSerializer()
+    athlete = AthleteSerializer()
 
     class Meta:
         model = Event
-        # extra_kwargs = {
-        #     'athlete_id': {'view_name': 'athletes', 'lookup_field': 'first_name'}
-        # }
-        fields = ['datetime', 'athlete_id']
+        fields = ['id', 'datetime', 'athlete']
 
 
-class CommentSerializer(serializers.ModelSerializer):
-    user_id = UserSerializer()
+class UserSimpleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username']
+
+
+class CommentSerializerList(serializers.ModelSerializer):
+    user = UserSimpleSerializer()
 
     class Meta:
         model = Comment
-        fields = ['created_at', 'text', 'user_id']
+        fields = ['id', 'created_at', 'text', 'user']
+
+
+class CommentSerializerCreate(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'created_at', 'text', 'user', 'event']
