@@ -10,6 +10,6 @@ export class AthletesService {
   constructor(private http: HttpClient) {}
 
   getAllAthletes() {
-    return this.http.get<AthletesWrapper>(`${environment.apiUrl}/v1/athletes/`);
+    return this.http.get<AthletesWrapper>(`${environment.apiUrl}/athletes/`);
   }
 }
