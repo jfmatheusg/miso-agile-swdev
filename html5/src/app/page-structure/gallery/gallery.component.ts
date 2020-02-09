@@ -3,6 +3,7 @@ import { AuthenticationService } from "../../services/authentication.service";
 import { Router } from "@angular/router";
 import { AthletesService } from "src/app/services/athletes.service";
 import { Observable } from "rxjs";
+import { AthletesWrapper } from 'src/app/services/DTO/athletesWrapper.interface';
 
 @Component({
   selector: "app-gallery",
@@ -16,7 +17,7 @@ export class GalleryComponent implements OnInit {
     private athletesService: AthletesService
   ) {}
 
-  athletes: Observable<any>;
+  athletes: Observable<AthletesWrapper>;
 
   ngOnInit() {
     this.athletes = this.athletesService.getAllAthletes();
