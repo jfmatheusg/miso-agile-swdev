@@ -20,7 +20,7 @@ cd folder-name
 
 
 ### [Backend (Rest)](rest/readme.md)
-### [Frontend (Rest)](html5/readme.md)
+### [Frontend (Rest)](html5/README.md)
 
 ***
 
