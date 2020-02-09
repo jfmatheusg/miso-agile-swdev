@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { UserSignUpDataDTO } from './DTO/userSignUpDataDTO.interface';
 
 @Injectable()
 export class AuthenticationService {
@@ -13,6 +14,19 @@ export class AuthenticationService {
                 .substring(1);
         }
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+    signUp(userInfo: UserSignUpDataDTO) {
+        return this.http.post<any>(`${environment.apiUrl}/users/register`, { ...userInfo })
+            .pipe(map(user => {
+                // login successful if there's a jwt token in the response
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('token', user.token);
+                }
+
+                return user;
+            }));
     }
 
     login(username: string, password: string) {
