@@ -17,12 +17,11 @@ export class GalleryComponent implements OnInit {
     private athletesService: AthletesService
   ) {}
 
-  athletes: Observable<AthletesWrapper>;
+  athletes: any;
 
   ngOnInit() {
-    this.athletes = this.athletesService.getAllAthletes();
-    this.athletes.subscribe(athletes => {
-      console.log("Atletas", athletes);
+    this.athletesService.getAllAthletes().subscribe(athletes => {
+      this.athletes = athletes;
     });
   }
 
