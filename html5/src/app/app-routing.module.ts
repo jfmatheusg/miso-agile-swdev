@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './page-structure/home/home.component';
-import { UsersModule } from './modules/users/users.module';
+import { GalleryComponent } from './page-structure/gallery/gallery.component';
 
 
 const routes: Routes = [
-  {
-    path: 'users',
-    loadChildren: () => UsersModule
-  },
-
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'gallery', component: GalleryComponent },
 ];
 
 @NgModule({
