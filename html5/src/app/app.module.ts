@@ -22,7 +22,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     PageStructureModule,
     NgbModule
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

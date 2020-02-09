@@ -57,8 +57,8 @@
           />
         </div>
         <button
-          [disabled]="signUpForm.valid"
-          [ngClass]="{'disabled': this.signUpForm.valid}"
+          [disabled]="!signUpForm.valid"
+          [ngClass]="{'disabled': !this.signUpForm.valid}"
           *ngIf="!loading"
           type="submit"
           class="btn btn-lg btn-success"
