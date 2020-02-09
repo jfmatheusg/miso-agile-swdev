@@ -39,7 +39,7 @@ DEBUG = os.environ.get('DEBUG') or True
 HEROKU_APPLICATION = os.environ.get('HEROKU_APPLICATION')
 
 
-ALLOWED_HOSTS = ["olimpicosmiso.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["olimpicosmiso.herokuapp.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -54,11 +54,13 @@ INSTALLED_APPS = [
     'tokio2020.apps.Tokio2020Config',
     'rest_framework',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -203,3 +205,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=366),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=366),
 }
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True
