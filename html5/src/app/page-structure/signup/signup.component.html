@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row centeredText" id="loginHeader">
+    <h3>
+      {{ title }}
+    </h3>
+  </div>
+
+  <div id="mainLoginContainer" class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <h4 class="centeredText">Sign Up</h4>
+      <p id="versionLabel" class="centeredText">Version 0.0.1</p>
+      <form class="center centeredText" [formGroup]="signUpForm">
+        <div class="form-group">
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            placeholder="e-mail"
+            formControlName="email"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="usernameInput"
+            placeholder="Username"
+            formControlName="username"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            class="form-control"
+            id="firstnameInput"
+            placeholder="First Name"
+            formControlName="first_name"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            class="form-control"
+            id="firstNameInput"
+            placeholder="Last Name"
+            formControlName="last_name"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+            formControlName="password"
+          />
+        </div>
+        <button
+          [disabled]="signUpForm.valid"
+          [ngClass]="{'disabled': this.signUpForm.valid}"
+          *ngIf="!loading"
+          type="submit"
+          class="btn btn-lg btn-success"
+          id="SignUpSubmitButton"
+          onsubmit="return;"
+          (click)="signUp()"
+        >
+          Submit
+        </button>
+        <img
+          *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        />
+        <!-- <h6 id="forgotPasswordLabel">Forgot your password?</h6> -->
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <footer class="footer"></footer>
+</div>
