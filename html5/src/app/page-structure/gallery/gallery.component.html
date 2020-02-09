@@ -1,9 +1,47 @@
 <nav class="navbar navbar-light bg-dark">
   <a class="navbar-brand">Tokyo 2020</a>
   <form class="form-inline">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="logOut()">
+    <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      type="submit"
+      (click)="logOut()"
+    >
       Log Out
     </button>
   </form>
 </nav>
-<p>gallery works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let athlete of athletes.results | async" class="col-md-4">
+      <div class="card" style="width: 18rem;">
+        <img [src]="athlete.get_absolute_url" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h4 class="card-title">
+            {{ athlete.first_name }} {{ athlete.last_name }}
+          </h4>
+          <h5>Birthday:</h5>
+          <p class="card-text">{{ athlete.birthday }}</p>
+          <h5>Birthplace:</h5>
+          <p class="card-text">{{ athlete.birthplace }}</p>
+          <h5>Age:</h5>
+          <p class="card-text">{{ athlete.age }}</p>
+          <h5>Weight:</h5>
+          <p class="card-text">{{ athlete.weight }}</p>
+          <h5>Height:</h5>
+          <p class="card-text">{{ athlete.height }}</p>
+          <h5>Coach:</h5>
+          <p class="card-text">{{ athlete.coach }}</p>
+          <h5>Sports:</h5>
+          <ul>
+            <li *ngFor="let sport of athlete.sports">
+              <h6>
+                {{ sport.name }}
+              </h6>
+              <img class="sport-icon" [src]="sport.get_absolute_url" *ngIf="sport.get_absolute_url"/>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

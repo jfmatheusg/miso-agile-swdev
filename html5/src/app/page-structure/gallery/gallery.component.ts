@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthenticationService } from "../../services/authentication.service";
 import { Router } from "@angular/router";
+import { AthletesService } from "src/app/services/athletes.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-gallery",
@@ -10,10 +12,18 @@ import { Router } from "@angular/router";
 export class GalleryComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private athletesService: AthletesService
   ) {}
 
-  ngOnInit() {}
+  athletes: Observable<any>;
+
+  ngOnInit() {
+    this.athletes = this.athletesService.getAllAthletes();
+    this.athletes.subscribe(athletes => {
+      console.log("Atletas", athletes);
+    });
+  }
 
   logOut() {
     this.authenticationService.logout();
