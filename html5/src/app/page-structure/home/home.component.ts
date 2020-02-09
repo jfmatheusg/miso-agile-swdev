@@ -56,4 +56,7 @@ export class HomeComponent implements OnInit {
         }
       );
   }
+  goToSignUp(){
+    return this.router.navigate(['signup']);
+  }
 }
