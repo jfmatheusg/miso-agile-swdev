@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Error404Component } from './error404/error404.component';
 import { HomeComponent } from './home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { GalleryComponent } from './gallery/gallery.component';
   declarations: [
     Error404Component,
     HomeComponent,
-    GalleryComponent
+    GalleryComponent,
+    SignupComponent
   ]
 })
 export class PageStructureModule { }
