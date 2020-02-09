@@ -17,7 +17,7 @@ export class GalleryComponent implements OnInit {
     private athletesService: AthletesService
   ) {}
 
-  athletes: any;
+  athletes: any = {};
 
   ngOnInit() {
     this.athletesService.getAllAthletes().subscribe(athletes => {
