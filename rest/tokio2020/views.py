@@ -2,6 +2,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta
 from django.shortcuts import render
 
+import django_filters
+from django.db import models as django_models
+
 from tokio2020 import models, serializers
 from rest_framework import viewsets
 
@@ -33,8 +36,6 @@ def UserRegister(request):
 @permission_classes([IsAuthenticated])
 def UserMe(request):
     user = models.CustomUser.objects.get(pk=request.user.id)
-    print('xxxxxxx')
-    print(user)
     sc = serializers.UserSerializer(user)
     # print(sc)
     return Response(sc.data)
@@ -47,48 +48,50 @@ class AthleteViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = ['first_name', 'last_name']
     search_fields = ['$first_name', '$last_name']
 
-    def get(self, request, format=None):
-        content = {
-            'status': 'request was permitted'
+
+class EventFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.Event
+        fields = {
+            'datetime': ['lte', 'gte'],
+            'athlete':  ['exact'],
+            'sport':  ['exact'],
+            'mode':  ['exact'],
         }
-        return Response(content)
+
+    filter_overrides = {
+        django_models.DateTimeField: {
+            'filter_class': django_filters.IsoDateTimeFilter
+        },
+    }
 
 
 class EventViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = models.Event.objects.all()
     serializer_class = serializers.EventSerializer
-
-    def get(self, request, format=None):
-        content = {
-            'status': 'request was permitted'
-        }
-        return Response(content)
-
-    @action(detail=True)
-    def comments(self, request, pk=None):
-        comments = models.Comment.objects.filter(event=pk).order_by('-created_at')
-        sc = serializers.CommentSerializerList(comments, many=True)
-        return Response(sc.data)
+    filterset_fields = ['datetime', 'athlete', 'sport', 'mode']
+    filter_class = EventFilter
 
 
-class CommentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class CommentViewSet(viewsets.ReadOnlyModelViewSet, mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated | ReadOnly]
 
     queryset = models.Comment.objects.all()
-    serializer_class = serializers.CommentSerializerList
-    filterset_fields = ['text']
+    filterset_fields = ['text', 'event']
 
-    def create(self, request):
-        try:
-            event = models.Event.objects.get(pk=request.data['event'])
-        except ObjectDoesNotExist:
-            return Response({'event': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
-
-        request.data['user'] = request.user.id
-        serialized = serializers.CommentSerializerCreate(data=request.data)
-        if serialized.is_valid():
-            serialized.create(serialized.validated_data)
-            return Response(serialized.data, status=status.HTTP_201_CREATED)
+    def get_serializer_class(self):
+        if self.action == 'list' or self.action == 'retrieve':
+            return serializers.CommentSerializerList
         else:
-            return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+            return serializers.CommentSerializerCreate
+
+    def list(self, request, pk=None):
+        request.query_params._mutable = True
+        request.query_params['event'] = pk
+        return super().list(request)
+
+    def create(self, request, pk=None):
+        request.data['event'] = pk
+        request.data['user'] = request.user.id
+        return super().create(request)

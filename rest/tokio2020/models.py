@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from datetime import date
 from django.utils import timezone
 from datetime import date, datetime
+from locallibrary import settings
 
 
 class CustomUser(AbstractUser):
@@ -27,7 +27,7 @@ class Sport(models.Model):
 
     def get_absolute_url(self):
         if self.icono:
-            return '%s%s' % (os.getenv('HEROKU_APPLICATION') if '' else '/', self.icono.url)
+            return '%s%s' % ('' if settings.HEROKU_APPLICATION else '/', self.icono.url)
         return ''
 
 
@@ -55,7 +55,7 @@ class Athlete(models.Model):
 
     def get_absolute_url(self):
         if self.image:
-            return '%s%s' % (os.getenv('HEROKU_APPLICATION') if '' else '/', self.image.url)
+            return '%s%s' % ('' if settings.HEROKU_APPLICATION else '/', self.image.url)
         return ''
 
     def __str__(self):

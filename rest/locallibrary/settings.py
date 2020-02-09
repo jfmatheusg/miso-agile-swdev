@@ -32,10 +32,12 @@ except OSError:
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY') or 'SECRET_KEY_LOCAL'
+SECRET_KEY = os.environ.get('SECRET_KEY') or 'SECRET_KEY_LOCAL'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') or True
+DEBUG = os.environ.get('DEBUG') or True
+HEROKU_APPLICATION = os.environ.get('HEROKU_APPLICATION')
+
 
 ALLOWED_HOSTS = ["olimpicosmiso.herokuapp.com", "127.0.0.1"]
 
@@ -43,7 +45,6 @@ ALLOWED_HOSTS = ["olimpicosmiso.herokuapp.com", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,17 +93,17 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 
 DATABASES = {'default': {}}
 
-if os.getenv('HEROKU_APPLICATION'):
+if HEROKU_APPLICATION:
     # db
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES['default'].update(db_from_env)
 
     # s3
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
     AWS_S3_REGION_NAME = "eu-west-1"
-    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_ACCESS_KEY_ID = os.environ.get("S3_KEY")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
     AWS_DEFAULT_ACL = "public-read"
     AWS_BUCKET_ACL = "public-read"
     AWS_IS_GZIPPED = True
@@ -166,7 +167,6 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
-        # 'rest_framework_filters.backends.RestFrameworkFilterBackend',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 9,
