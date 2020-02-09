@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string = "/autenticado";
+  returnUrl: string = "/gallery";
 
   constructor(
     private formBuilder: FormBuilder,

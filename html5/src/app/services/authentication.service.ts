@@ -15,8 +15,8 @@ export class AuthenticationService {
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
 
-    login(email: string, password: string) {
-        return this.http.post<any>(`${environment.apiUrl}/users/login`, { email: email, password: password })
+    login(username: string, password: string) {
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -27,6 +27,7 @@ export class AuthenticationService {
                 return user;
             }));
     }
+    
     me() {
         return this.http.get<any>(`${environment.apiUrl}/users/me`, {
             headers: { Authorization: 'bearer ' + localStorage.getItem('token') }
@@ -45,5 +46,6 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        // TODO: Call API to invalidate token??
     }
 }
