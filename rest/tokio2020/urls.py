@@ -12,13 +12,16 @@ from rest_framework_simplejwt.views import (
 router = routers.DefaultRouter()
 router.register(r'athletes', views.AthleteViewSet)
 router.register(r'events', views.EventViewSet)
-router.register(r'comments', views.CommentViewSet)
+
+routerPk = routers.DefaultRouter()
+routerPk.register(r'comments', views.CommentViewSet)
 
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('events/<pk>/', include(routerPk.urls)),
     path('users/register', views.UserRegister, name='register'),
     path('users/login', TokenObtainPairView.as_view(), name='login'),
     path('users/token/refresh', TokenRefreshView.as_view(), name='refresh'),
-    path('users/me', views.UserMe, name='refresh'),
+    path('users/me', views.UserMe, name='me'),
 ]
