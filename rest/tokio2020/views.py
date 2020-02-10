@@ -15,6 +15,7 @@ from rest_framework import generics, mixins, status
 from rest_framework.decorators import action, api_view, permission_classes
 
 from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import make_password
 
 
 class ReadOnly(BasePermission):
@@ -24,6 +25,9 @@ class ReadOnly(BasePermission):
 
 @api_view(['POST'])
 def UserRegister(request):
+    print(request.data)
+    request.data['password'] = make_password(request.data['password'])
+
     serialized = serializers.UserSerializer(data=request.data)
     if serialized.is_valid():
         serialized.create(serialized.validated_data)
@@ -36,7 +40,7 @@ def UserRegister(request):
 @permission_classes([IsAuthenticated])
 def UserMe(request):
     user = models.CustomUser.objects.get(pk=request.user.id)
-    sc = serializers.UserSerializer(user)
+    sc = serializers.UserMeSerializer(user)
     # print(sc)
     return Response(sc.data)
 

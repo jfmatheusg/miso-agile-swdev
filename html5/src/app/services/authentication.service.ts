@@ -6,7 +6,7 @@ import { UserSignUpDataDTO } from "./DTO/userSignUpDataDTO.interface";
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -46,17 +46,17 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
+    let _self = this;
     return this.http
       .post<any>(`${environment.apiUrl}/users/login`, { username, password })
       .pipe(
-        map(user => {
+        map(data => {
           // login successful if there's a jwt token in the response
-          if (user && user.token) {
+          if (data && data.access) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("token", user.token);
+            localStorage.setItem("token", data.access);
           }
-
-          return user;
+          return data;
         })
       );
   }
@@ -64,7 +64,7 @@ export class AuthenticationService {
   me() {
     return this.http
       .get<any>(`${environment.apiUrl}/users/me`, {
-        headers: { Authorization: "bearer " + localStorage.getItem("token") }
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
       })
       .pipe(
         map(user => {

@@ -10,9 +10,13 @@ import { DemoMaterialModule } from "./material.module";
 import { PageStructureModule } from "./page-structure/page-structure.module";
 import { AuthenticationService } from "./services";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { MenuComponent } from './page-structure/menu/menu.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    MenuComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,4 +29,13 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
   providers: [AuthenticationService, AuthenticationService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private authenticationService: AuthenticationService
+  ) {
+    if (!localStorage.getItem('session')) {
+      localStorage.setItem('session', this.authenticationService.guid());
+
+    }
+  }
+}

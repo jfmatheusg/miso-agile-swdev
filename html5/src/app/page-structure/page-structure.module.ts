@@ -6,12 +6,14 @@ import { Error404Component } from './error404/error404.component';
 import { HomeComponent } from './home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { SignupComponent } from './signup/signup.component';
+import { DemoMaterialModule } from '../material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DemoMaterialModule,
   ],
   declarations: [
     Error404Component,

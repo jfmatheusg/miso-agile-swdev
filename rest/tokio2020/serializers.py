@@ -16,6 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
         return CustomUser.objects.create(**validated_data)
 
 
+class UserMeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'username', 'first_name', 'last_name']
+
+
 class SportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sport
