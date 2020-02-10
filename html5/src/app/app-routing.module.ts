@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './page-structure/home/home.component';
-import { GalleryComponent } from './page-structure/gallery/gallery.component';
-import { SignupComponent } from './page-structure/signup/signup.component';
+import { LoginComponent } from './modules/users/login/login.component';
+import { RegisterComponent } from './modules/users/register/register.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'gallery', component: GalleryComponent },
-  { path: 'signup', component: SignupComponent }
+  // {
+  //   path: 'users',
+  //   loadChildren: './modules/users/users.module#UsersModule'
+  // },
+
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
+  { path: 'users/login', component: LoginComponent },
+  { path: 'users/register', component: RegisterComponent }
 ];
 
 @NgModule({

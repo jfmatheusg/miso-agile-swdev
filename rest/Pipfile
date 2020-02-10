@@ -21,6 +21,7 @@ django-storages = "*"
 djangorestframework = "*"
 django-filter = "*"
 djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"
