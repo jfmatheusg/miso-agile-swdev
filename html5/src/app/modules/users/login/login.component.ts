@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
+  hide = true;
   submitted = false;
   returnUrl: string;
 

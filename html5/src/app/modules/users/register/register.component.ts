@@ -13,6 +13,7 @@ import { UserSignUpDataDTO } from 'src/app/services/DTO/userSignUpDataDTO.interf
 export class RegisterComponent implements OnInit {
   signUpForm: FormGroup;
   loading = false;
+  hide = true;
   submitted = false;
   returnUrl: string;
 

@@ -11,6 +11,7 @@ import { PageStructureModule } from "./page-structure/page-structure.module";
 import { AuthenticationService } from "./services";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MenuComponent } from './page-structure/menu/menu.component';
+import { UsersModule } from './modules/users/users.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MenuComponent } from './page-structure/menu/menu.component';
     HttpClientModule,
     DemoMaterialModule,
     PageStructureModule,
+    UsersModule,
     NgbModule
   ],
   providers: [AuthenticationService, AuthenticationService],
