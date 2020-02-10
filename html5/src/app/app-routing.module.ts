@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './page-structure/home/home.component';
 import { LoginComponent } from './modules/users/login/login.component';
 import { RegisterComponent } from './modules/users/register/register.component';
+import { Error404Component } from './page-structure/error404/error404.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   // { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '', component: HomeComponent },
   { path: 'users/login', component: LoginComponent },
-  { path: 'users/register', component: RegisterComponent }
+  { path: 'users/register', component: RegisterComponent },
+  { path: '**', component: Error404Component }
 ];
 
 @NgModule({
