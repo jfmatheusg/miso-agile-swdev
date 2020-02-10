@@ -5,17 +5,6 @@ import sys
 
 
 def main():
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    try:
-        os.makedirs(os.path.join(BASE_DIR, 'static'), exist_ok=True)
-    except OSError:
-        pass
-
-    try:
-        os.makedirs(os.path.join(BASE_DIR, 'staticfiles'), exist_ok=True)
-    except OSError:
-        pass
-
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'locallibrary.settings')
     try:
         from django.core.management import execute_from_command_line

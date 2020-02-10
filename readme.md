@@ -1,13 +1,15 @@
 # UniAndes-MISO4101 Procesos Ágiles de Desarrollo de Software
 
 ## Contenido
-1. [Descargar proyecto](#descargar_proyecto)
-2. [Configuración](#configuración)
-3. [Enunciado](#enunciado)
+
+- [Descargar proyecto](#descargar-proyecto)
+- [Configuración](#configuraci%c3%b3n)
+- [Enunciado](#enunciado)
+- [Modelo de Base de Datos](#modelo-de-base-de-datos)
 
 ***
 ## Descargar proyecto
-```
+```sh
 git clone git@github.com:jfmatheusg/miso-agile-swdev.git folder-name
 cd folder-name
 ```
@@ -18,8 +20,10 @@ cd folder-name
 
 
 ### [Backend (Rest)](rest/readme.md)
+### [Frontend (Rest)](html5/README.md)
 
 ***
+
 ## Enunciado
 
 Con motivo de los Olímpicos del 2020, la Universidad de Los Andes quiere proveer un sitio web en cual sus estudiantes puedan ver la información actualizada de los deportistas colombianos que van a participar enlos juegos olímpicos, con énfasis en los resultados obtenidos por la delegación Colombia, con la finalidad de fomentar el espíritu deportivo y patriótico de su comunidad estudiantil. Las funcionalidades que se deben implementar en el portal llamado "Colombia en Tokio 2020" son:
@@ -48,3 +52,9 @@ Con motivo de los Olímpicos del 2020, la Universidad de Los Andes quiere provee
 7. Los usuarios registrados pueden ingresar al sitio con su usuario(login)y password
 8. Los usuarios registrados pueden agregar comentarios en los videos de las participaciones de los deportistas.
 9.  Se debe contar con un módulo de administración global donde se pueda manejar toda la información de la plataforma, solo tenga acceso un superadministrador.
+
+***
+
+## Modelo de Base de Datos
+
+![Base de Datos](tokio2020.png)

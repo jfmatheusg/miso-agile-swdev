@@ -1,3 +1,4 @@
+from datetime import timedelta
 """
 Django settings for olimpicos2020 project.
 
@@ -16,17 +17,29 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+try:
+    os.makedirs(os.path.join(BASE_DIR, 'assets'), exist_ok=True)
+except OSError:
+    pass
+
+try:
+    os.makedirs(os.path.join(BASE_DIR, 'staticfiles'), exist_ok=True)
+except OSError:
+    pass
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY') or 'SECRET_KEY_LOCAL'
+SECRET_KEY = os.environ.get('SECRET_KEY') or 'SECRET_KEY_LOCAL'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') or True
+HEROKU_APPLICATION = os.environ.get('HEROKU_APPLICATION')
 
-ALLOWED_HOSTS = ["olimpicosmiso.herokuapp.com", "127.0.0.1"]
+
+ALLOWED_HOSTS = ["olimpicosmiso.herokuapp.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -39,17 +52,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tokio2020.apps.Tokio2020Config',
+    'rest_framework',
+    'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'locallibrary.urls'
@@ -78,9 +95,21 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 
 DATABASES = {'default': {}}
 
-if os.getenv('HEROKU_APPLICATION'):
+if HEROKU_APPLICATION:
+    # db
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES['default'].update(db_from_env)
+
+    # s3
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
+    AWS_S3_REGION_NAME = "eu-west-1"
+    AWS_ACCESS_KEY_ID = os.environ.get("S3_KEY")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_BUCKET_ACL = "public-read"
+    AWS_IS_GZIPPED = True
+
 else:
     DATABASES['default'].update({
         'ENGINE': 'django.db.backends.sqlite3',
@@ -124,12 +153,58 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_TMP = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+STATIC_TMP = os.path.join(BASE_DIR, 'tmp')
+STATIC_URL = '/assets/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "files")
+    os.path.join(BASE_DIR, "dist"),
+    os.path.join(BASE_DIR, "assets"),
 ]
 AUTH_USER_MODEL = 'tokio2020.CustomUser'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# REST
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 9,
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+# JWT
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=366),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=366),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=366),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=366),
+}
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True

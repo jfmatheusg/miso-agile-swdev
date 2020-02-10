@@ -17,7 +17,7 @@ class SportAdmin(admin.ModelAdmin):
 
 class EventAdmin(admin.ModelAdmin):
     readonly_fields = ['datetime', ]
-    exclude = ['sport_id', ]
+    exclude = ['sport', ]
 
 
 class AthleteAdmin(admin.ModelAdmin):
@@ -31,7 +31,10 @@ class AthleteAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    readonly_fields = ['created_at', 'text', 'user_id', 'event_id']
+    readonly_fields = ['created_at', 'text', 'user', 'event']
+
+    def has_add_permission(self, request, obj=None):
+        return False
 
 
 admin.site.register(CustomUser)
