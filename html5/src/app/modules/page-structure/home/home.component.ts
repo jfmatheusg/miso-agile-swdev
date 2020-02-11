@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { AthletesService } from 'src/app/services/athletes.service';
-import { environment } from "../../../environments/environment";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-home',

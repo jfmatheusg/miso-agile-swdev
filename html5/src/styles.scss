@@ -70,6 +70,13 @@ body {
 
 .sport-icon {
   height: 32px;
+  transition: all 500ms;
+  margin-right: 8px;
+
+  &:hover {
+    background-color: #cccccc;
+    border-radius: 3px;
+  }
 }
 
 .mat-form-field {

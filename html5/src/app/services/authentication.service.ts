@@ -2,11 +2,15 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { environment } from "../../environments/environment";
-import { UserSignUpDataDTO } from "./DTO/userSignUpDataDTO.interface";
+import { UserSignUpInterface } from "../interfaces/user-sign-up.interface";
+import { UserSessionService } from './user-session.service';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public user: UserSessionService,
+  ) { }
   guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -29,24 +33,17 @@ export class AuthenticationService {
     );
   }
 
-  signUp(userInfo: UserSignUpDataDTO) {
+  signUp(userInfo: UserSignUpInterface) {
     return this.http
       .post<any>(`${environment.apiUrl}/users/register`, { ...userInfo })
       .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("token", user.token);
-          }
-
-          return user;
+        map(data => {
+          return data;
         })
       );
   }
 
   login(username: string, password: string) {
-    let _self = this;
     return this.http
       .post<any>(`${environment.apiUrl}/users/login`, { username, password })
       .pipe(
@@ -67,21 +64,24 @@ export class AuthenticationService {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
       })
       .pipe(
-        map(user => {
+        map(data => {
           // login successful if there's a jwt token in the response
-          if (user) {
+          if (data) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(data));
+            this.user.profile = data;
+            this.user.ok = true;
           }
 
-          return user;
+          return data;
         })
       );
   }
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
-    // TODO: Call API to invalidate token??
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    this.user.reset();
   }
 }

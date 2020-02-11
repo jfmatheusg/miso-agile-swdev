@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 
 import { DemoMaterialModule } from '../../material.module';
 import { RegisterComponent } from './register/register.component';
+import { PageStructureModule } from '../page-structure/page-structure.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { RegisterComponent } from './register/register.component';
     UsersRoutingModule,
     DemoMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PageStructureModule,
   ],
   declarations: [
     UsersComponent,

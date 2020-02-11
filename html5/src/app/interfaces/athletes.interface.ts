@@ -1,4 +1,4 @@
-export interface AthletesWrapper {
+export interface AthletesInterface {
   count: number;
   next: any;
   previous: any;

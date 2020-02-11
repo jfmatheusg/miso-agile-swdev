@@ -3,6 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../../services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { ErrorRestInterface } from 'src/app/interfaces/error-rest.interface';
+import { ErrorRestService } from 'src/app/services/error-rest/error-rest.service';
+import { UserSessionService } from 'src/app/services/user-session.service';
 
 
 @Component({
@@ -10,6 +13,7 @@ import { first } from 'rxjs/operators';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
+  errorRest: ErrorRestInterface;
   loginForm: FormGroup;
   loading = false;
   hide = true;
@@ -21,7 +25,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    public errorRestService: ErrorRestService,
   ) { }
 
   ngOnInit() {
@@ -37,6 +42,13 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
+  getErrorMessage(field) {
+    let obj = this.f[field];
+    return obj.hasError('required') ? 'El campo es requerido' :
+      obj.hasError('email') ? 'No es un correo válido' :
+        '';
+  }
+
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
@@ -47,27 +59,27 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    let _self = this;
 
     this.loading = true;
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          _self.authenticationService.me()
+          this.authenticationService.me()
             .pipe(first())
             .subscribe(
               data => {
-                _self.loading = false;
-                //_self.router.navigate([_self.returnUrl]);
-                window.location.replace(_self.returnUrl);
+                this.loading = false;
+                this.router.navigate([this.returnUrl]);
               },
               error => {
-                _self.loading = false;
+                this.loading = false;
+                this.errorRest = error.error;
               });
         },
         error => {
           this.loading = false;
+          this.errorRest = error.error;
         });
   }
 
