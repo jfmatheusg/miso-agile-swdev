@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { UserSignUpInterface } from 'src/app/interfaces/user-sign-up.interface';
 import { ErrorRestInterface } from 'src/app/interfaces/error-rest.interface';
+import { TitleService } from 'src/app/services/title.service';
 
 
 @Component({
@@ -24,10 +25,12 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private titleService: TitleService,
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Registro');
     this.signUpForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],

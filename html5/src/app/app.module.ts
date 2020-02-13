@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, Title } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -15,6 +15,8 @@ import { ErrorRestService } from './services/error-rest/error-rest.service';
 import { ErrorRestComponent } from './services/error-rest/error-rest.component';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 import { UserSessionService } from './services/user-session.service';
+import { TitleService } from './services/title.service';
+import { AthletesModule } from './modules/athletes/athletes.module';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,12 @@ import { UserSessionService } from './services/user-session.service';
     DemoMaterialModule,
     PageStructureModule,
     UsersModule,
+    AthletesModule,
     NgbModule,
   ],
   providers: [
+    Title,
+    TitleService,
     AuthenticationService,
     ErrorRestService,
     UserSessionService,

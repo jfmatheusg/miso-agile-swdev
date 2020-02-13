@@ -8,8 +8,8 @@
   </mat-toolbar-row>
   <mat-toolbar-row class="d-sm-none">
     <div class="container text-center">
-      <a mat-raised-button [routerLink]="['/users/login']" *ngIf="user.ok">Login </a>
-      <a mat-raised-button color="accent" [routerLink]="['/users/register']" *ngIf="user.ok">Registro</a>
+      <a mat-raised-button [routerLink]="['/users/login']" *ngIf="!user.ok">Login </a>
+      <a mat-raised-button color="accent" [routerLink]="['/users/register']" *ngIf="!user.ok">Registro</a>
       <button mat-raised-button *ngIf="user.ok" (click)="logout()">Salir</button>
     </div>
   </mat-toolbar-row>

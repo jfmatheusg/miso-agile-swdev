@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { ErrorRestInterface } from 'src/app/interfaces/error-rest.interface';
 import { ErrorRestService } from 'src/app/services/error-rest/error-rest.service';
-import { UserSessionService } from 'src/app/services/user-session.service';
+import { TitleService } from 'src/app/services/title.service';
 
 
 @Component({
@@ -27,9 +27,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     public errorRestService: ErrorRestService,
+    private titleService: TitleService,
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Login');
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]

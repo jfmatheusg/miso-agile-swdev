@@ -12,4 +12,12 @@ export class AthletesService {
   getAllAthletes() {
     return this.http.get<AthletesInterface>(`${environment.apiUrl}/athletes/`);
   }
+
+  getAthlete(pk) {
+    return this.http.get<any>(`${environment.apiUrl}/athletes/${pk}`);
+  }
+
+  getAthleteEvents(pk) {
+    return this.http.get<any>(`${environment.apiUrl}/athletes/${pk}/events`);
+  }
 }

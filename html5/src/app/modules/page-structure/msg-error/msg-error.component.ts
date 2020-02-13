@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { TitleService } from 'src/app/services/title.service';
 @Component({
   selector: 'app-msg-error',
   templateUrl: './msg-error.component.html'
@@ -6,7 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class MsgErrorComponent implements OnInit {
   @Input() error: {};
-  constructor() { }
-  ngOnInit() {
+  constructor(private titleService: TitleService) {
+    this.titleService.setTitle('Error');
   }
+  ngOnInit() { }
 }

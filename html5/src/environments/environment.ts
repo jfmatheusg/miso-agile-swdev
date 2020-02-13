@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8000/v1',
-  urlImages: 'http://localhost:8000'
+  urlImages: 'http://localhost:8000',
+  siteName: 'LOCAL - Colombia en Tokio 2020'
 };
 
 /*
