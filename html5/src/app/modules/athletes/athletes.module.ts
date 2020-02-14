@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AthletesRoutingModule } from './athletes-routing.module';
 import { AthletesComponent } from './athletes.component';
 import { RetrieveComponent } from './retrieve/retrieve.component';
+import { VideoComponent } from './video/video.component';
 
 import { DemoMaterialModule } from '../../material.module';
 import { PageStructureModule } from '../page-structure/page-structure.module';
@@ -22,6 +23,7 @@ import { PageStructureModule } from '../page-structure/page-structure.module';
   declarations: [
     AthletesComponent,
     RetrieveComponent,
+    VideoComponent,
   ]
 })
 export class AthletesModule { }

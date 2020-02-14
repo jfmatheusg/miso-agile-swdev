@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AthletesComponent } from './athletes.component';
 import { RetrieveComponent } from './retrieve/retrieve.component';
+import { VideoComponent } from './video/video.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: ':pk',
         component: RetrieveComponent
+      },
+      {
+        path: 'videeo/:pk',
+        component: VideoComponent
       }
     ]
   }

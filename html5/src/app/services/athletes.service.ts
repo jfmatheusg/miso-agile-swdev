@@ -20,4 +20,8 @@ export class AthletesService {
   getAthleteEvents(pk) {
     return this.http.get<any>(`${environment.apiUrl}/athletes/${pk}/events`);
   }
+
+  getEvent(pk) {
+    return this.http.get<any>(`${environment.apiUrl}/events/${pk}`);
+  }
 }

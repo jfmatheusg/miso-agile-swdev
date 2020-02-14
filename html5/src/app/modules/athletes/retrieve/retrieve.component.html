@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row justify-content-md-center">
-    <div class="col col-md-6">
-      <mat-card *ngIf="isLoadingResultsA || isRateLimitReached">
+    <div class="col-md-12">
+      <app-msg-error [error]="errorRest"></app-msg-error>
+    </div>
+    <div class="col-md-6">
+      <mat-card *ngIf="isLoadingResultsA">
         <div class="app-container">
           <div class="app-loading-shade">
             <mat-spinner *ngIf="isLoadingResultsA"></mat-spinner>
-            <div class="app-rate-limit-reached" *ngIf="isRateLimitReached">
-              Limite de peticiones superada
-            </div>
           </div>
         </div>
       </mat-card>
@@ -27,14 +27,11 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col col-md-6">
-      <mat-card *ngIf="isLoadingResultsA || isRateLimitReached">
+    <div class="col-md-6">
+      <mat-card *ngIf="isLoadingResultsA">
         <div class="app-container">
           <div class="app-loading-shade">
             <mat-spinner *ngIf="isLoadingResultsA"></mat-spinner>
-            <div class="app-rate-limit-reached" *ngIf="isRateLimitReached">
-              Limite de peticiones superada
-            </div>
           </div>
         </div>
       </mat-card>
@@ -70,14 +67,11 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col col-md-12">
+    <div class="col-md-12">
 
       <div class="app-container" *ngIf="resultsLength">
-        <div class="app-loading-shade" *ngIf="isLoadingResultsE || isRateLimitReached">
+        <div class="app-loading-shade" *ngIf="isLoadingResultsE">
           <mat-spinner *ngIf="isLoadingResultsE"></mat-spinner>
-          <div class="app-rate-limit-reached" *ngIf="isRateLimitReached">
-            Limite de peticiones superada
-          </div>
         </div>
 
         <div class="app-table-container">
@@ -93,20 +87,25 @@
               </td>
             </ng-container>
             <ng-container matColumnDef="mode">
-              <th mat-header-cell *matHeaderCellDef>Modalidad</th>
+              <th mat-header-cell *matHeaderCellDef class="text-center">Modalidad</th>
               <td mat-cell *matCellDef="let row">{{row.mode.name}} / {{row.mode.gender}}</td>
             </ng-container>
             <ng-container matColumnDef="datetime">
-              <th mat-header-cell *matHeaderCellDef>Fecha y Hora</th>
+              <th mat-header-cell *matHeaderCellDef class="text-center">Fecha y Hora</th>
               <td mat-cell *matCellDef="let row">{{row.datetime | date:'short'}}</td>
             </ng-container>
             <ng-container matColumnDef="result">
-              <th mat-header-cell *matHeaderCellDef>Resultado</th>
+              <th mat-header-cell *matHeaderCellDef class="text-center">Resultado</th>
               <td mat-cell *matCellDef="let row">{{row.result}}</td>
             </ng-container>
             <ng-container matColumnDef="video">
-              <th mat-header-cell *matHeaderCellDef>Video Resumen</th>
-              <td mat-cell *matCellDef="let row">{{row.url_video}}</td>
+              <th mat-header-cell *matHeaderCellDef class="text-center">Video Resumen</th>
+              <td mat-cell *matCellDef="let row" class="text-center">
+                <mat-icon *ngIf="!row.url_video" aria-hidden="false" aria-label="Video no disponible" matTooltip="Video no disponible">tv_off</mat-icon>
+                <a *ngIf="row.url_video" [routerLink]="['/athletes/video',row.id]">
+                  <img class="img-video" [src]="getVideoID(row.url_video)">
+                </a>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

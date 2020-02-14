@@ -130,7 +130,7 @@ table {
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 56px;
+  bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.15);
   z-index: 1;
@@ -175,4 +175,8 @@ th.mat-header-cell {
 
 .hand {
   cursor: pointer;
+}
+
+.img-video {
+  height: 48px;
 }

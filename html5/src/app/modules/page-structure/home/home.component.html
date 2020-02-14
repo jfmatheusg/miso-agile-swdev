@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div *ngFor="let athlete of athletes.results" class="col-sm-6 col-md-4">
-      <mat-card [routerLink]="['athletes/' + athlete.id]" class="hand">
+      <mat-card [routerLink]="['athletes/',athlete.id]" class="hand">
         <mat-card-header>
           <mat-card-title>{{ athlete.last_name }}</mat-card-title>
           <mat-card-subtitle>{{ athlete.first_name }}</mat-card-subtitle>
