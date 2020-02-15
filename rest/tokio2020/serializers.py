@@ -54,6 +54,15 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ['id', 'datetime', 'athlete', 'sport', 'mode', 'result', 'url_video']
 
 
+class AthleteEventSerializer(serializers.ModelSerializer):
+    sport = SportSerializer()
+    mode = ModeSerializer()
+
+    class Meta:
+        model = Event
+        fields = ['id', 'datetime', 'athlete', 'sport', 'mode', 'result', 'url_video']
+
+
 class UserSimpleSerializer(serializers.ModelSerializer):
 
     class Meta:

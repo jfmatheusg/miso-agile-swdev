@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div *ngFor="let athlete of athletes.results" class="col-sm-6 col-md-4">
-      <mat-card>
+      <mat-card [routerLink]="['athletes/',athlete.id]" class="hand">
         <mat-card-header>
           <mat-card-title>{{ athlete.last_name }}</mat-card-title>
           <mat-card-subtitle>{{ athlete.first_name }}</mat-card-subtitle>
@@ -9,7 +9,7 @@
         <img mat-card-image class="card-img-top" [src]="environment.urlImages+(athlete.get_absolute_url ? athlete.get_absolute_url : '/assets/icons/not.png')" alt="{{ athlete.first_name }} {{ athlete.last_name }}">
         <mat-card-content>
           <p>
-            <img class="sport-icon" *ngFor="let sport of athlete.sports" [src]="environment.urlImages+(sport.get_absolute_url ? sport.get_absolute_url : '/assets/icons/not.png')" alt="{{ sport.name }}" />
+            <img class="sport-icon" *ngFor="let sport of athlete.sports" [src]="environment.urlImages+(sport.get_absolute_url ? sport.get_absolute_url : '/assets/icons/not.png')" matTooltip="{{ sport.name }}" alt="{{ sport.name }}" />
           </p>
         </mat-card-content>
       </mat-card>

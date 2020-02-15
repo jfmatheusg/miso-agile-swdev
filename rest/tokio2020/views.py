@@ -99,3 +99,15 @@ class CommentViewSet(viewsets.ReadOnlyModelViewSet, mixins.CreateModelMixin, vie
         request.data['event'] = pk
         request.data['user'] = request.user.id
         return super().create(request)
+
+
+class EventViewListSet(viewsets.ReadOnlyModelViewSet, viewsets.GenericViewSet):
+    queryset = models.Event.objects.all()
+    serializer_class = serializers.AthleteEventSerializer
+    filterset_fields = ['datetime', 'athlete', 'sport', 'mode']
+    filter_class = EventFilter
+
+    def list(self, request, pk=None):
+        request.query_params._mutable = True
+        request.query_params['athlete'] = pk
+        return super().list(request)

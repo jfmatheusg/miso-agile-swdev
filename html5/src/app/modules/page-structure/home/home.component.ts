@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services';
-import { Router } from '@angular/router';
 import { AthletesService } from 'src/app/services/athletes.service';
-import { environment } from "../../../environments/environment";
+import { environment } from "../../../../environments/environment";
+import { TitleService } from 'src/app/services/title.service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +9,11 @@ import { environment } from "../../../environments/environment";
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private authenticationService: AuthenticationService,
-    private router: Router,
-    private athletesService: AthletesService
-  ) { }
+    private athletesService: AthletesService,
+    private titleService: TitleService
+  ) {
+    this.titleService.setTitle('Inicio');
+  }
 
   athletes: any = {};
   environment = environment;

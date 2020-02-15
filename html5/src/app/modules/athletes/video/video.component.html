@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-12">
+      <app-msg-error [error]="errorRest"></app-msg-error>
+    </div>
+    <div class="app-loading-shade" *ngIf="isLoadingResultsA">
+      <mat-spinner *ngIf="isLoadingResultsA"></mat-spinner>
+    </div>
+
+    <div class="col-md-12" *ngIf="!isLoadingResultsA">
+      <h1>{{event.result}}</h1>
+      <h4>{{event.datetime | date:'short'}}</h4>
+    </div>
+    <div class="col-md-12" *ngIf="!isLoadingResultsA">
+      <div id="player"></div>
+    </div>
+  </div>
+</div>
