@@ -1,1 +1,58 @@
-<mxfile host="www.draw.io" modified="2020-02-15T18:05:49.694Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36" version="12.7.0" etag="x-dmUHsQpNIfKVOalerT" type="github"><diagram id="KaB_0wWURqVJXlBuXdc-">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="www.draw.io" modified="2020-02-15T18:08:49.931Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36" etag="7uLY6xykhiNb3NzDjX9G" version="12.7.0" type="github">
+  <diagram id="KaB_0wWURqVJXlBuXdc-" name="Page-1">
+    <mxGraphModel dx="1694" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-1" value="Organizar Material del Curso" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="140" y="120" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-2" value="Cargar material para el curso" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="140" y="220" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-3" value="Como profesor quiero poder cargar un video desde mi PC a la plataforma para poder utilizar material propio" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="140" y="320" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-4" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="240" y="80" width="50" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-5" value="Profesor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="mdo0tzn5LU9oxhH1WFHH-4">
+          <mxGeometry width="50" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-6" value="Usuario 1" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=none;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;fontSize=8;noLabel=1;fontColor=none;" vertex="1" parent="mdo0tzn5LU9oxhH1WFHH-4">
+          <mxGeometry x="17.857142857142858" y="22.5" width="14.285714285714286" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-7" value="Organizar Material del Curso" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="120" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-8" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="480" y="80" width="50" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-9" value="Profesor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="mdo0tzn5LU9oxhH1WFHH-8">
+          <mxGeometry width="50" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-10" value="Usuario 1" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=none;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;fontSize=8;noLabel=1;fontColor=none;" vertex="1" parent="mdo0tzn5LU9oxhH1WFHH-8">
+          <mxGeometry x="17.857142857142858" y="22.5" width="14.285714285714286" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-11" value="Organizar Material del Curso" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="630" y="120" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-12" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="730" y="80" width="50" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-13" value="Profesor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="mdo0tzn5LU9oxhH1WFHH-12">
+          <mxGeometry width="50" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-14" value="Usuario 1" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=none;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;fontSize=8;noLabel=1;fontColor=none;" vertex="1" parent="mdo0tzn5LU9oxhH1WFHH-12">
+          <mxGeometry x="17.857142857142858" y="22.5" width="14.285714285714286" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-15" value="Super usuario" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="150" y="490" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="mdo0tzn5LU9oxhH1WFHH-16" value="Usuario institucional" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="150" y="600" width="200" height="80" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
