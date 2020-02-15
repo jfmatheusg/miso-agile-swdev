@@ -30,11 +30,11 @@ class AthleteAdmin(admin.ModelAdmin):
         )
 
 
-class CommentAdmin(admin.ModelAdmin):
-    readonly_fields = ['created_at', 'text', 'user', 'event']
+# class CommentAdmin(admin.ModelAdmin):
+#     readonly_fields = ['created_at', 'text', 'user', 'event']
 
-    def has_add_permission(self, request, obj=None):
-        return False
+#     def has_add_permission(self, request, obj=None):
+#         return False
 
 
 admin.site.register(CustomUser)
@@ -42,4 +42,4 @@ admin.site.register(Athlete, AthleteAdmin)
 admin.site.register(Mode)
 admin.site.register(Sport, SportAdmin)
 admin.site.register(Event, EventAdmin)
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Comment)
