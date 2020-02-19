@@ -45,6 +45,7 @@ ALLOWED_HOSTS = ["olimpicosmiso.herokuapp.com", "127.0.0.1", "localhost"]
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -162,6 +163,7 @@ STATICFILES_DIRS = [
 ]
 AUTH_USER_MODEL = 'tokio2020.CustomUser'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+WHITENOISE_USE_FINDERS = False
 
 
 # REST

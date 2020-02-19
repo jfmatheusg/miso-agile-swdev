@@ -13,13 +13,17 @@ router = routers.DefaultRouter()
 router.register(r'athletes', views.AthleteViewSet)
 router.register(r'events', views.EventViewSet)
 
-routerPk = routers.DefaultRouter()
-routerPk.register(r'comments', views.CommentViewSet)
+routerC = routers.DefaultRouter()
+routerC.register(r'comments', views.CommentViewSet)
+
+routerE = routers.DefaultRouter()
+routerE.register(r'events', views.EventViewListSet)
 
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('events/<pk>/', include(routerPk.urls)),
+    path('events/<pk>/', include(routerC.urls)),
+    path('athletes/<pk>/', include(routerE.urls)),
     path('users/register', views.UserRegister, name='register'),
     path('users/login', TokenObtainPairView.as_view(), name='login'),
     path('users/token/refresh', TokenRefreshView.as_view(), name='refresh'),

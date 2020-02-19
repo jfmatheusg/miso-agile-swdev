@@ -3,27 +3,27 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { UsersRoutingModule } from './users-routing.module';
-import { UsersComponent } from './users.component';
-import { LoginComponent } from './login/login.component';
+import { AthletesRoutingModule } from './athletes-routing.module';
+import { AthletesComponent } from './athletes.component';
+import { RetrieveComponent } from './retrieve/retrieve.component';
+import { VideoComponent } from './video/video.component';
 
 import { DemoMaterialModule } from '../../material.module';
-import { RegisterComponent } from './register/register.component';
 import { PageStructureModule } from '../page-structure/page-structure.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    UsersRoutingModule,
+    AthletesRoutingModule,
     DemoMaterialModule,
     FormsModule,
     ReactiveFormsModule,
     PageStructureModule,
   ],
   declarations: [
-    UsersComponent,
-    LoginComponent,
-    RegisterComponent,
+    AthletesComponent,
+    RetrieveComponent,
+    VideoComponent,
   ]
 })
-export class UsersModule { }
+export class AthletesModule { }

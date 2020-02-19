@@ -8,6 +8,7 @@ fs.readFile(file, 'utf8', function (err, data) {
     .replace(/runtime/g, '/assets/runtime')
     .replace(/polyfills/g, '/assets/polyfills')
     .replace(/main/g, '/assets/main')
+    .replace(/scripts\./g, '/assets/scripts.')
     .replace(/"styles\./g, '"/assets/styles.');
 
   fs.writeFile(file, result, 'utf8', function (err) {
