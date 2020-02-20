@@ -9,8 +9,17 @@ import { AthletesInterface } from "../interfaces/athletes.interface";
 export class AthletesService {
   constructor(private http: HttpClient) { }
 
-  getAllAthletes() {
-    return this.http.get<AthletesInterface>(`${environment.apiUrl}/athletes/`);
+  private encodeQueryData(data) {
+    const ret = [];
+    for (let d in data)
+      if (data[d]) {
+        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+      }
+    return ret.join('&');
+  }
+
+  getAllAthletes(data: {} = {}) {
+    return this.http.get<AthletesInterface>(`${environment.apiUrl}/athletes/?${this.encodeQueryData(data)}`);
   }
 
   getAthlete(pk) {

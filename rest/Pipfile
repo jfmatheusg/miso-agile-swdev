@@ -23,6 +23,9 @@ django-filter = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 brotli = "*"
+install = "*"
+django-smart-selects = "*"
+smart-selects = "*"
 
 [requires]
 python_version = "3.8"

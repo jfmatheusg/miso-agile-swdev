@@ -49,8 +49,29 @@ class AthleteViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = models.Athlete.objects.all()
     serializer_class = serializers.AthleteSerializer
-    filterset_fields = ['first_name', 'last_name']
+    filterset_fields = ['first_name', 'last_name', 'sports', 'modes']
     search_fields = ['$first_name', '$last_name']
+
+
+class SportViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = models.Sport.objects.all()
+    serializer_class = serializers.SportSerializer
+    filterset_fields = ['name']
+    page_size = None
+
+
+class ModesViewListSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = models.Mode.objects.all()
+    serializer_class = serializers.ModeSerializer
+    filterset_fields = ['name', 'sport']
+    page_size = None
+
+    def list(self, request, pk=None):
+        request.query_params._mutable = True
+        request.query_params['sport'] = pk
+        return super().list(request)
 
 
 class EventFilter(django_filters.FilterSet):

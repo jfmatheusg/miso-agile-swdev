@@ -1,4 +1,43 @@
 <div class="container">
+  <form [formGroup]="searchForm" novalidate (ngSubmit)="search()">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+          <mat-select formControlName="sport" (ngModelChange)="getModes()">
+            <mat-option>-- Todos --</mat-option>
+            <mat-option value="{{sport.id}}" *ngFor="let sport of sports.results">
+              <img class="sport-icon" [src]="environment.urlImages+(sport.get_absolute_url ? sport.get_absolute_url : '/assets/icons/not.png')" matTooltip="{{ sport.name }}" alt="{{ sport.name }}" />
+              {{sport.name}}
+            </mat-option>
+          </mat-select>
+          <mat-label>
+            Deporte
+          </mat-label>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field matInput appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+          <mat-select formControlName="mode">
+            <mat-option>-- Todos --</mat-option>
+            <mat-option value="{{mode.id}}" *ngFor="let mode of modes.results">
+              {{mode.name}} / {{mode.gender}}
+            </mat-option>
+          </mat-select>
+          <mat-label>
+            Modo
+          </mat-label>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <button [disabled]="loading" mat-raised-button color="accent" class="btn-block">Buscar</button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-12">
+      <h1>Lista de atletas</h1>
+    </div>
+  </div>
   <div class="row">
     <div *ngFor="let athlete of athletes.results" class="col-sm-6 col-md-4">
       <mat-card [routerLink]="['athletes/',athlete.id]" class="hand">
