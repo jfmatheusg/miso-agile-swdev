@@ -33,4 +33,12 @@ export class AthletesService {
   getEvent(pk) {
     return this.http.get<any>(`${environment.apiUrl}/events/${pk}`);
   }
+
+  getComments(pk) {
+    return this.http.get<any>(`${environment.apiUrl}/events/${pk}/comments`);
+  }
+
+  putComment(pk, body) {
+    return this.http.post<any>(`${environment.apiUrl}/events/${pk}/comments/`, body);
+  }
 }

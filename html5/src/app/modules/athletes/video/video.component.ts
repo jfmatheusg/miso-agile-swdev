@@ -4,6 +4,8 @@ import { TitleService } from 'src/app/services/title.service';
 import { AthletesService } from 'src/app/services/athletes.service';
 import { environment } from 'src/environments/environment';
 import { ErrorRestInterface } from 'src/app/interfaces/error-rest.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserSessionService } from 'src/app/services/user-session.service';
 
 
 @Component({
@@ -14,7 +16,9 @@ export class VideoComponent implements OnInit {
   errorRest: ErrorRestInterface;
   environment = environment;
   isLoadingResultsA = true;
-  event: any;
+  isLoadingResultsC = true;
+  event: any = {};
+  comments: any = {};
 
   public YT: any;
   public video: any;
@@ -23,11 +27,15 @@ export class VideoComponent implements OnInit {
 
   isRestricted = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+  commentForm: FormGroup;
+
 
   constructor(
+    private formBuilder: FormBuilder,
     private athletesService: AthletesService,
     private titleService: TitleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public user: UserSessionService,
   ) { }
 
   ngOnInit() {
@@ -42,12 +50,29 @@ export class VideoComponent implements OnInit {
     }, error => {
       this.errorRest = error.error;
     });
+    this.getComments(pk);
+    this.commentForm = this.formBuilder.group({
+      text: ['', Validators.required]
+    });
+  }
+
+  getComments(pk) {
+    this.athletesService.getComments(pk).subscribe(comments => {
+      this.isLoadingResultsC = false;
+      this.comments = comments;
+    }, error => {
+      this.errorRest = error.error;
+    });
+
   }
 
   // Acá va la implementación de la libreria por angular
   putScript() {
     if (window['YT']) {
-      this.startVideo();
+      this.startVideo(true)
+      setTimeout(() => {
+        this.startVideo(true);
+      }, 1000)
       return;
     }
     var tag = document.createElement('script');
@@ -55,13 +80,13 @@ export class VideoComponent implements OnInit {
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    window['onYouTubeIframeAPIReady'] = () => this.startVideo();
+    window['onYouTubeIframeAPIReady'] = () => this.startVideo(false);
 
   }
 
-  startVideo() {
-    this.reframed = false;
-    this.player = new window['YT'].Player('player', {
+  startVideo(reframed) {
+    this.reframed = reframed;
+    return this.player = new window['YT'].Player('player', {
       height: '360',
       width: '100%',
       videoId: this.video,
@@ -129,4 +154,16 @@ export class VideoComponent implements OnInit {
         break;
     };
   };
+
+  get f() { return this.commentForm.controls; }
+
+  comment() {
+    let pk = this.route.snapshot.params.pk;
+    this.athletesService.putComment(pk, { text: this.f.text.value }).subscribe(() => {
+      this.f.text.setValue('');
+      this.getComments(pk);
+    }, error => {
+      this.errorRest = error.error;
+    });
+  }
 }
