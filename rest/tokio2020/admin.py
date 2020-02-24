@@ -26,8 +26,7 @@ class AthleteAdmin(admin.ModelAdmin):
     def image_url(self, obj):
         return mark_safe('<img src="{url}" height="100" />'.format(
             url=obj.get_absolute_url(),
-        )
-        )
+        ))
 
 
 # class CommentAdmin(admin.ModelAdmin):

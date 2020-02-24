@@ -29,6 +29,13 @@ class SportSerializer(serializers.ModelSerializer):
 
 
 class ModeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Mode
+        fields = ['id', 'name', 'gender', 'sport']
+
+
+class ModeSportSerializer(serializers.ModelSerializer):
     sport = SportSerializer()
 
     class Meta:
@@ -38,16 +45,17 @@ class ModeSerializer(serializers.ModelSerializer):
 
 class AthleteSerializer(serializers.ModelSerializer):
     sports = SportSerializer(many=True)
+    modes = ModeSerializer(many=True)
 
     class Meta:
         model = Athlete
-        fields = ['id', 'first_name', 'last_name', 'get_absolute_url', 'birthday', 'birthplace', 'age', 'weight', 'height', 'coach', 'sports']
+        fields = ['id', 'first_name', 'last_name', 'get_absolute_url', 'birthday', 'birthplace', 'age', 'weight', 'height', 'coach', 'sports', 'modes']
 
 
 class EventSerializer(serializers.ModelSerializer):
     athlete = AthleteSerializer()
     sport = SportSerializer()
-    mode = ModeSerializer()
+    mode = ModeSportSerializer()
 
     class Meta:
         model = Event
@@ -56,7 +64,7 @@ class EventSerializer(serializers.ModelSerializer):
 
 class AthleteEventSerializer(serializers.ModelSerializer):
     sport = SportSerializer()
-    mode = ModeSerializer()
+    mode = ModeSportSerializer()
 
     class Meta:
         model = Event
