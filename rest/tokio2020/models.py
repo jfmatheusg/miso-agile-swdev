@@ -31,37 +31,6 @@ class Sport(models.Model):
         return ''
 
 
-class Athlete(models.Model):
-    """
-    Deportistas
-    """
-    first_name = models.CharField(max_length=50, verbose_name="Nombres")
-    last_name = models.CharField(max_length=50, verbose_name="Apellidos")
-    image = models.ImageField(null=True, blank=True, upload_to="assets/athletes", verbose_name="Foto")
-    birthday = models.DateField(verbose_name="Fecha de Nacimiento")
-    birthplace = models.CharField(max_length=50, verbose_name="Lugar de nacimiento")
-    age = models.IntegerField(verbose_name="Edad")
-    weight = models.DecimalField(max_digits=5, decimal_places=2, max_length=50, verbose_name="Peso", help_text="libras")
-    height = models.DecimalField(max_digits=3, decimal_places=2, max_length=50, verbose_name="Altura", help_text="metros")
-    coach = models.CharField(max_length=100, verbose_name="Entrenador")
-    sports = models.ManyToManyField(Sport, help_text="Seleccione uno o más deportes en los que compite.")
-
-    def save(self, *args, **kwargs):
-        today = date.today()
-        age = today.year - self.birthday.year - \
-            ((today.month, today.day) < (self.birthday.month, self.birthday.day))
-        self.age = age
-        super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        if self.image:
-            return '%s%s' % ('' if settings.HEROKU_APPLICATION else '/', self.image.url)
-        return ''
-
-    def __str__(self):
-        return '%s %s' % (self.first_name, self.last_name)
-
-
 class Mode(models.Model):
     """
     Modalidad de deporte
@@ -77,6 +46,38 @@ class Mode(models.Model):
 
     def __str__(self):
         return '%s/%s/%s' % (self.sport, self.name, self.gender)
+
+
+class Athlete(models.Model):
+    """
+    Deportistas
+    """
+    first_name = models.CharField(max_length=50, verbose_name="Nombres")
+    last_name = models.CharField(max_length=50, verbose_name="Apellidos")
+    image = models.ImageField(null=True, blank=True, upload_to="assets/athletes", verbose_name="Foto")
+    birthday = models.DateField(verbose_name="Fecha de Nacimiento")
+    birthplace = models.CharField(max_length=50, verbose_name="Lugar de nacimiento")
+    age = models.IntegerField(verbose_name="Edad")
+    weight = models.DecimalField(max_digits=5, decimal_places=2, max_length=50, verbose_name="Peso", help_text="libras")
+    height = models.DecimalField(max_digits=3, decimal_places=2, max_length=50, verbose_name="Altura", help_text="metros")
+    coach = models.CharField(max_length=100, verbose_name="Entrenador")
+    sports = models.ManyToManyField(Sport, help_text="Seleccione uno o más deportes en los que compite.")
+    modes = models.ManyToManyField(Mode, help_text="Seleccione uno o más modos en los que compite.")
+
+    def save(self, *args, **kwargs):
+        today = date.today()
+        age = today.year - self.birthday.year - \
+            ((today.month, today.day) < (self.birthday.month, self.birthday.day))
+        self.age = age
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        if self.image:
+            return '%s%s' % ('' if settings.HEROKU_APPLICATION else '/', self.image.url)
+        return ''
+
+    def __str__(self):
+        return '%s %s' % (self.first_name, self.last_name)
 
 
 class Event(models.Model):

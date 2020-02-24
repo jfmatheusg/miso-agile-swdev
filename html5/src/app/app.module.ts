@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DemoMaterialModule } from "./material.module";
 
 import { PageStructureModule } from "./modules/page-structure/page-structure.module";
-import { AuthenticationService } from "./services";
+import { AuthenticationService } from "./services/authentication.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UsersModule } from './modules/users/users.module';
 import { ErrorRestService } from './services/error-rest/error-rest.service';
